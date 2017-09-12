@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:infra="clr-namespace:ForeignExchangeMac.Infrastructure;assembly=ForeignExchangeMac"
+    x:Class="ForeignExchangeMac.App">
+	<Application.Resources>
+
+        <!-- Resource Dictionary -->
+        <ResourceDictionary>
+            
+            <!-- Locator -->
+            <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+
+            <!-- Variables -->
+            <x:String x:Key="CompanyName">CHEJ Consultor, C.A.</x:String>
+            <x:String x:Key="CompanySlogan">- Su Requerimiento es Nuestro Compromiso -</x:String>
+            <x:String x:Key="NameApp">Foreign Exchange</x:String>
+       </ResourceDictionary>
+
+		<!-- Application resource dictionary -->
+	</Application.Resources>
+</Application>

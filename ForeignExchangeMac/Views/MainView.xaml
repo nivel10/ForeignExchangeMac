@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="ForeignExchangeMac.Views.MainView"
+    BindingContext="Binding Main, Source={StaticResource Locator}}" >
+
+    <!-- Esta propiedad permite los margenes en diferentes plataformas mediante XAML-->
+    <ContentPage.Padding>
+            <OnPlatform x:TypeArguments="Thickness"
+                        Android="10,30,10,30"
+                        iOS="20,30,20,30"/>
+        </ContentPage.Padding>
+    
+	<ContentPage.Content>
+        <ScrollView>
+             <StackLayout>
+
+                <Label FontAttributes="Bold"  
+                       FontSize="Large"
+                       HorizontalOptions="Center"  
+                       Text="{StaticResource CompanyName}"
+                       VerticalOptions="Center"/>
+
+                <Label FontAttributes="Bold"  
+                       FontSize="Small"
+                       HorizontalOptions="Center"  
+                       Text="{StaticResource CompanySlogan}"
+                       VerticalOptions="Center"/>
+
+                <Label FontAttributes="Bold"  
+                       FontSize="Small"
+                       HorizontalOptions="Center"  
+                       Text="{StaticResource NameApp}"
+                       VerticalOptions="Center"/>
+                
+                <Label/>
+                
+                <!-- Definicion del Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".4*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Encabezado -->
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           Text="Amount:"
+                           VerticalOptions="Center"/>
+                    
+                    <Entry HorizontalOptions="FillAndExpand"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           Placeholder="Entry amount...!!!"
+                           VerticalOptions="Center"/>
+                </Grid>
+             </StackLayout>
+        </ScrollView>
+	</ContentPage.Content>
+</ContentPage>
