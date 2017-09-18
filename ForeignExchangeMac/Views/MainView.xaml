@@ -16,6 +16,7 @@
         <ScrollView>
              <StackLayout>
 
+                <!-- Encabezado -->
                 <Label FontAttributes="Bold"  
                        FontSize="Large"
                        HorizontalOptions="Center"  
@@ -40,7 +41,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".5*"/>
                         <ColumnDefinition Width=".4*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -49,7 +50,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Encabezado -->
+                    <!-- Cuerpo -->
                     <Label Grid.Column="0"
                            Grid.Row="0"
                            Text="Amount:"
@@ -60,9 +61,60 @@
                            Grid.Column="1"
                            Grid.Row="0"
                            Grid.ColumnSpan="2"
-                           Placeholder="Entry amount...!!!"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Placeholder="Enter the amount to convert...!!!"
+                           Text="{Binding Amount, Mode=TwoWay}"
                            VerticalOptions="Center"/>
+                    
+                    <Label Grid.Column="0"
+                           Grid.Row="1"
+                           Text="Source rate:"
+                           VerticalOptions="Center"/>
+
+                    <Picker Grid.Column="1"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding Rates}"
+                            SelectedItem="{Binding SourceRate, Mode=TwoWay}"
+                            Title="Select source rate"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Target rate:"
+                           VerticalOptions="Center"/>
+
+                    <Picker Grid.Column="1"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}" 
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding Rates}"
+                            SelectedItem="{Binding TargetRate, Mode=TwoWay}"
+                            Title="Select target rate"/>
                 </Grid>
+
+                <!-- Pie -->
+                <ActivityIndicator IsRunning="{Binding IsRunning, Mode=TwoWay}"/>
+                
+                <Button Command="{Binding ConvertCommand}"
+                        BackgroundColor="Silver"
+                        BorderRadius="20"
+                        HeightRequest="50"
+                        IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                        WidthRequest="10"
+                        Text="Convert"
+                        TextColor="Black"/>
+
+                <Label BackgroundColor="Silver"
+                       HorizontalTextAlignment="Center"
+                       Margin="5, 5"
+                       TextColor="Black"
+                       Text="{Binding Result, Mode=TwoWay}"
+                       VerticalTextAlignment="Center"
+                       VerticalOptions="FillAndExpand"/>
+                
              </StackLayout>
         </ScrollView>
 	</ContentPage.Content>
