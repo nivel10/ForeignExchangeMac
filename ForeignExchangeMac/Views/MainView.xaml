@@ -3,13 +3,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="ForeignExchangeMac.Views.MainView"
-    BindingContext="Binding Main, Source={StaticResource Locator}}" >
+    BindingContext="{Binding Main, Source={StaticResource Locator}}" >
 
     <!-- Esta propiedad permite los margenes en diferentes plataformas mediante XAML-->
     <ContentPage.Padding>
             <OnPlatform x:TypeArguments="Thickness"
                         Android="10,30,10,30"
-                        iOS="20,30,20,30"/>
+                        iOS="20,30,20,30"
+                        WinPhone="10,30,10,30"/>
         </ContentPage.Padding>
     
 	<ContentPage.Content>
@@ -53,6 +54,7 @@
                     <!-- Cuerpo -->
                     <Label Grid.Column="0"
                            Grid.Row="0"
+                           HorizontalOptions="Start"
                            Text="Amount:"
                            VerticalOptions="Center"/>
                     
@@ -68,6 +70,7 @@
                     
                     <Label Grid.Column="0"
                            Grid.Row="1"
+                           HorizontalOptions="Start"
                            Text="Source rate:"
                            VerticalOptions="Center"/>
 
@@ -82,6 +85,7 @@
 
                     <Label Grid.Column="0"
                            Grid.Row="2"
+                           HorizontalOptions="Start"
                            Text="Target rate:"
                            VerticalOptions="Center"/>
 
