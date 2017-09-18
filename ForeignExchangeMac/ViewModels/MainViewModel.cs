@@ -18,6 +18,8 @@
         private string _result;
         private bool _isEnabled;
         private ObservableCollection<Rate> _rates;
+        private Rate _sourceRate;
+        private Rate _targetRate;
 
         #endregion
 
@@ -28,6 +30,14 @@
             get
             {
                 return new RelayCommand(Convert);
+            }
+        }
+
+        public ICommand SwitchCommand
+        {
+            get
+            {
+                return new RelayCommand(Switch);
             }
         }
 
@@ -65,14 +75,34 @@
 
         public Rate SourceRate
         {
-            get;
-            set;
+            get
+            {
+                return _sourceRate;
+            }
+            set
+            {
+                if(value != _sourceRate)
+                {
+                    _sourceRate = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SourceRate)));
+                }
+            }
         }
 
         public Rate TargetRate
         {
-            get;
-            set;
+            get
+            {
+                return _targetRate;
+            }
+            set
+            {
+                if(value !=_targetRate)
+                 {
+                    _targetRate = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TargetRate)));
+                }
+            }
         }
 
         public bool IsRunning
@@ -216,6 +246,18 @@
                 IsRunning = false;
                 Result = ex.Message.Trim();
             }
+        }
+
+        /// <summary>
+        /// Metodo que hace el cambio de tasas
+        /// </summary>
+        private void Switch()
+        {
+            var aux = SourceRate;
+            SourceRate = TargetRate;
+            TargetRate = aux;
+
+            Convert();
         }
 
 		#endregion

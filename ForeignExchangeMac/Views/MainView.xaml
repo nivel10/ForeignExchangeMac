@@ -40,16 +40,16 @@
                 
                 <!-- Definicion del Grid -->
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition Width=".4*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".5*"/>
+                    </Grid.ColumnDefinitions>
 
                     <!-- Cuerpo -->
                     <Label Grid.Column="0"
@@ -76,7 +76,6 @@
 
                     <Picker Grid.Column="1"
                             Grid.Row="1"
-                            Grid.ColumnSpan="2"
                             IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                             ItemDisplayBinding="{Binding Name}"
                             ItemsSource="{Binding Rates}"
@@ -91,12 +90,31 @@
 
                     <Picker Grid.Column="1"
                             Grid.Row="2"
-                            Grid.ColumnSpan="2"
                             IsEnabled="{Binding IsEnabled, Mode=TwoWay}" 
                             ItemDisplayBinding="{Binding Name}"
                             ItemsSource="{Binding Rates}"
                             SelectedItem="{Binding TargetRate, Mode=TwoWay}"
                             Title="Select target rate"/>
+                    
+                    <!--<Image Grid.Column="2"
+                           HeightRequest="10"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Grid.Row="1"
+                           Grid.RowSpan="2"
+                           Source="ico_switch.png"
+                           WidthRequest="10">-->
+                        <Image Grid.Column="2"
+                           HeightRequest="10"
+                           Grid.Row="1"
+                           Grid.RowSpan="2"
+                           Source="ico_switch.png"
+                           WidthRequest="10">
+                        
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SwitchCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    
                 </Grid>
 
                 <!-- Pie -->
