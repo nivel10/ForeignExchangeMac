@@ -1,7 +1,7 @@
 ﻿namespace ForeignExchangeMac.Infrastructure
 {
 	using System;
-	using ForeignExchangeMac.ViewModels;
+	using ViewModels;
 
     public class InstanceLocator
     {

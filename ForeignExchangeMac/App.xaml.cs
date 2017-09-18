@@ -1,6 +1,6 @@
 ﻿namespace ForeignExchangeMac
 {
-	using ForeignExchangeMac.Views;
+	using Views;
 	using Xamarin.Forms;
 
     public partial class App : Application

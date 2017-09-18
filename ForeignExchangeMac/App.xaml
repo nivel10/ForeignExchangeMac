@@ -10,7 +10,7 @@
         <ResourceDictionary>
             
             <!-- Locator -->
-            <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+            <infra:InstanceLocator x:Key="Locator"/>
 
             <!-- Variables -->
             <x:String x:Key="CompanyName">CHEJ Consultor, C.A.</x:String>
