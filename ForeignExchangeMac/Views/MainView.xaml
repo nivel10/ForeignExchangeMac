@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:i18n="clr-namespace:ForeignExchangeMac.Helpers;assembly=ForeignExchangeMac"
     x:Class="ForeignExchangeMac.Views.MainView"
     BindingContext="{Binding Main, Source={StaticResource Locator}}" >
 
@@ -30,12 +31,17 @@
                        Text="{StaticResource CompanySlogan}"
                        VerticalOptions="Center"/>
 
-                <Label FontAttributes="Bold"  
+                <!--<Label FontAttributes="Bold"  
                        FontSize="Small"
                        HorizontalOptions="Center"  
                        Text="{StaticResource NameApp}"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"/>-->
                 
+                <Label FontAttributes="Bold"  
+                       FontSize="Small"
+                       HorizontalOptions="Center"  
+                       Text="{i18n:Translate Title}"
+                       VerticalOptions="Center"/>
                 <Label/>
                 
                 <!-- Definicion del Grid -->
@@ -52,13 +58,18 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Cuerpo -->
-                    <Label Grid.Column="0"
+                    <!--<Label Grid.Column="0"
                            Grid.Row="0"
                            HorizontalOptions="Start"
                            Text="Amount:"
+                           VerticalOptions="Center"/>-->
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           HorizontalOptions="Start"
+                           Text="{i18n:Translate LabelAmount}"
                            VerticalOptions="Center"/>
                     
-                    <Entry HorizontalOptions="FillAndExpand"
+                    <!--<Entry HorizontalOptions="FillAndExpand"
                            Keyboard="Numeric"
                            Grid.Column="1"
                            Grid.Row="0"
@@ -66,13 +77,37 @@
                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                            Placeholder="Enter the amount to convert...!!!"
                            Text="{Binding Amount, Mode=TwoWay}"
+                           VerticalOptions="Center"/>-->
+                    
+                    <Entry HorizontalOptions="FillAndExpand"
+                           Keyboard="Numeric"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                           Placeholder="{i18n:Translate PlaceHolrderAmount}"
+                           Text="{Binding Amount, Mode=TwoWay}"
                            VerticalOptions="Center"/>
                     
-                    <Label Grid.Column="0"
+                    <!--<Label Grid.Column="0"
                            Grid.Row="1"
                            HorizontalOptions="Start"
                            Text="Source rate:"
+                           VerticalOptions="Center"/>-->
+
+                     <Label Grid.Column="0"
+                           Grid.Row="1"
+                           HorizontalOptions="Start"
+                           Text="{i18n:Translate LabelSourceRate}"
                            VerticalOptions="Center"/>
+                    
+                    <!--<Picker Grid.Column="1"
+                            Grid.Row="1"
+                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding Rates}"
+                            SelectedItem="{Binding SourceRate, Mode=TwoWay}"
+                            Title="Select source rate"/>-->
 
                     <Picker Grid.Column="1"
                             Grid.Row="1"
@@ -80,13 +115,27 @@
                             ItemDisplayBinding="{Binding Name}"
                             ItemsSource="{Binding Rates}"
                             SelectedItem="{Binding SourceRate, Mode=TwoWay}"
-                            Title="Select source rate"/>
+                            Title="{i18n:Translate TitleSourceRate}"/>
+                    
+                    <!--<Label Grid.Column="0"
+                           Grid.Row="2"
+                           HorizontalOptions="Start"
+                           Text="Target rate:"
+                           VerticalOptions="Center"/>-->
 
                     <Label Grid.Column="0"
                            Grid.Row="2"
                            HorizontalOptions="Start"
-                           Text="Target rate:"
+                           Text="{i18n:Translate LabelTargetRate}"
                            VerticalOptions="Center"/>
+                    
+                    <!--<Picker Grid.Column="1"
+                            Grid.Row="2"
+                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}" 
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding Rates}"
+                            SelectedItem="{Binding TargetRate, Mode=TwoWay}"
+                            Title="Select target rate"/>-->
 
                     <Picker Grid.Column="1"
                             Grid.Row="2"
@@ -94,7 +143,7 @@
                             ItemDisplayBinding="{Binding Name}"
                             ItemsSource="{Binding Rates}"
                             SelectedItem="{Binding TargetRate, Mode=TwoWay}"
-                            Title="Select target rate"/>
+                            Title="{i18n:Translate TitleTargetRate}"/>
                     
                     <!--<Image Grid.Column="2"
                            HeightRequest="10"
@@ -120,13 +169,21 @@
                 <!-- Pie -->
                 <ActivityIndicator IsRunning="{Binding IsRunning, Mode=TwoWay}"/>
                 
-                <Button Command="{Binding ConvertCommand}"
+                <!--<Button Command="{Binding ConvertCommand}"
                         BackgroundColor="Silver"
                         BorderRadius="20"
                         HeightRequest="50"
                         IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                         WidthRequest="10"
                         Text="Convert"
+                        TextColor="Black"/>-->
+                <Button Command="{Binding ConvertCommand}"
+                        BackgroundColor="Silver"
+                        BorderRadius="20"
+                        HeightRequest="50"
+                        IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                        WidthRequest="10"
+                        Text="{i18n:Translate CommandConvert}"
                         TextColor="Black"/>
 
                 <Label BackgroundColor="Silver"

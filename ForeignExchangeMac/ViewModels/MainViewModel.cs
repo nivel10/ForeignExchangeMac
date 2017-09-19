@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Input;
+    using ForeignExchangeMac.Helpers;
     using GalaSoft.MvvmLight.Command;
     using Models;
     using Newtonsoft.Json;
@@ -175,7 +176,7 @@
             if(string.IsNullOrEmpty(Amount))
 			{
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error", "You must enter a value in amount...!!!", "Accept");
+                    Lenguages.Error, Lenguages.AmountValidation, Lenguages.Accept);
                 return;
             }
 
@@ -183,21 +184,21 @@
             if(!decimal.TryParse(Amount, out amount))
 			{
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error", "You must enter a numeric value in amount...!!!", "Accept");
+                    Lenguages.Error, Lenguages.AmountNumericValidation, Lenguages.Accept);
                 return;
             }
 
             if(SourceRate == null)
 			{
 				await Application.Current.MainPage.DisplayAlert(
-                    "Error", "You must select a source rate...!!!", "Accept");
+                    Lenguages.Error, Lenguages.SourceRateValidation, Lenguages.Accept);
 				return;
 			}
 
 			if (TargetRate == null)
 			{
 				await Application.Current.MainPage.DisplayAlert(
-                    "Error", "You must select a target rate...!!!", "Accept");
+                    Lenguages.Error, Lenguages.TargetRateValidation, Lenguages.Accept);
 				return;
 			}
 
@@ -219,8 +220,9 @@
             try
             {
 				IsRunning = true;
-				Result = "Load rates, please wait...!!!";
-
+                //  Result = "Load rates, please wait...!!!";
+                Result = Lenguages.TitleLoadRate;
+                         
                 var client = new System.Net.Http.HttpClient();
                 client.BaseAddress = new Uri("http://apiexchangerates.azurewebsites.net");
                 var controler = "/api/Rates";
@@ -238,7 +240,8 @@
 
                 IsRunning = false;
                 IsEnabled = true;
-                Result = "Ready to convert...!!!";
+                //  Result = "Ready to convert...!!!";
+                Result = Lenguages.TitleReadyConvert;
 
 			}
             catch (Exception ex)
