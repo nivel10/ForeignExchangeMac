@@ -194,6 +194,9 @@
                        VerticalTextAlignment="Center"
                        VerticalOptions="FillAndExpand"/>
                 
+                <Label HorizontalOptions="Center"
+                       Text="{Binding Status, Mode=TwoWay}"/>
+                
              </StackLayout>
         </ScrollView>
 	</ContentPage.Content>

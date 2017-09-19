@@ -6,6 +6,7 @@
     using System.ComponentModel;
     using System.Windows.Input;
     using ForeignExchangeMac.Helpers;
+    using ForeignExchangeMac.Services;
     using GalaSoft.MvvmLight.Command;
     using Models;
     using Newtonsoft.Json;
@@ -21,6 +22,13 @@
         private ObservableCollection<Rate> _rates;
         private Rate _sourceRate;
         private Rate _targetRate;
+        private string _status;
+
+        #region Services
+
+        private ApiService apiService;
+
+        #endregion
 
         #endregion
 
@@ -155,12 +163,29 @@
 			}
 		}
 
+        public string Status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                if(value != _status)
+                {
+                    _status = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Status))); 
+                }
+            }
+        }
+
         #endregion
 
         #region Constructor
 
         public MainViewModel()
         {
+            apiService = new ApiService();
             LoadRates();
         }
 
@@ -222,27 +247,22 @@
 				IsRunning = true;
                 //  Result = "Load rates, please wait...!!!";
                 Result = Lenguages.TitleLoadRate;
-                         
-                var client = new System.Net.Http.HttpClient();
-                client.BaseAddress = new Uri("http://apiexchangerates.azurewebsites.net");
-                var controler = "/api/Rates";
-                var response = await client.GetAsync(controler);
-                var result = await response.Content.ReadAsStringAsync();
 
-                if(response.IsSuccessStatusCode)
-				{
-                    IsRunning = false;
-                    Result = result.Trim();
+                var respose = await apiService.GetList<Rate>("http://apiexchangerates.azurewebsites.net", "api/Rates");
+                if(!respose.IsSuccess)
+                {
+					IsRunning = false;
+                    IsEnabled = false;
+                    await Application.Current.MainPage.DisplayAlert(
+                        Lenguages.Error, respose.Messages, Lenguages.Accept);
+                    return;
                 }
 
-                var rates = JsonConvert.DeserializeObject<List<Rate>>(result);
-                Rates = new ObservableCollection<Rate>(rates);
-
+                Rates = new ObservableCollection<Rate>((List<Rate>)respose.Result);
                 IsRunning = false;
                 IsEnabled = true;
                 //  Result = "Ready to convert...!!!";
                 Result = Lenguages.TitleReadyConvert;
-
 			}
             catch (Exception ex)
             {
