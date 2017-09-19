@@ -248,6 +248,16 @@
                 //  Result = "Load rates, please wait...!!!";
                 Result = Lenguages.TitleLoadRate;
 
+                //  Verifica si hay conexion a internet 
+                var connection = await apiService.CheckConnection();
+                if(!connection.IsSuccess)
+                {
+                    IsRunning = false;
+                    IsEnabled = false;
+                    Result = connection.Messages;
+                    return;
+                }
+
                 var respose = await apiService.GetList<Rate>("http://apiexchangerates.azurewebsites.net", "api/Rates");
                 if(!respose.IsSuccess)
                 {
@@ -263,6 +273,7 @@
                 IsEnabled = true;
                 //  Result = "Ready to convert...!!!";
                 Result = Lenguages.TitleReadyConvert;
+                Status = "Rates loaded from internet...!!!";
 			}
             catch (Exception ex)
             {

@@ -6,9 +6,42 @@
     using System;
     using Newtonsoft.Json;
     using System.Collections.Generic;
+    using Plugin.Connectivity;
+    using ForeignExchangeMac.Helpers;
 
     public class ApiService
     {
+        public async Task<Response> CheckConnection()
+        {
+            if(!CrossConnectivity.Current.IsConnected)
+            {
+                return new Response
+                { 
+                    IsSuccess = false,
+                    Messages = Lenguages.TitleSettingsInternet,
+                    Result = null,
+                };
+            }
+
+            var response = await CrossConnectivity.Current.IsRemoteReachable("google.com");
+            if(!response)
+            {
+				return new Response
+				{
+					IsSuccess = false,
+					Messages = Lenguages.TitleAccessInternet,
+					Result = null,
+				};
+            }
+
+    		return new Response
+    		{
+    			IsSuccess = true,
+    			Messages = "Ok",
+    			Result = null,
+    		};
+        }
+
         /// <summary>
         /// Metodo generico que devuelve un objeto List
         /// </summary>
