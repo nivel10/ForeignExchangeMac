@@ -127,5 +127,26 @@
         {
             get { return Resource.TitleStatusInternet; }
         }
+
+        public static string TitleStatusLoadLocal
+        { 
+            get { return Resource.TitleStatusLoadLocal; }
+        }
+
+        public static string TitleStatusLoadInternet
+        { 
+            get { return Resource.TitleStatusLoadInternet; }
+        }
+
+        public static string TitleStatusNoLoad
+        { 
+            get { return Resource.TitleStatusNoLoad; }
+        }
+
+        public static string TitleStatusLoadError
+        { 
+            get {
+                return Resource.TitleStatusLoadError; } 
+        }
     }
 }

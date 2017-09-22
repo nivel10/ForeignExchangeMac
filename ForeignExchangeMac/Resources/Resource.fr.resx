@@ -83,5 +83,17 @@
   <data name="TitleTheAmount" xml:space="preserve">
     <value>Le montant:</value>
   </data>
-	
+  <data name="TitleStatusLoadLocal" xml:space="preserve">
+    <value>Taux facturés localement</value>
+  </data>
+    <data name="TitleStatusLoadInternet" xml:space="preserve">
+    <value>Taux de charge depuis internet</value>
+  </data>
+	<data name="TitleStatusNoLoad" xml:space="preserve">
+    <value>Aucune charge de taux...!!!</value>
+  </data>
+	 <data name="TitleStatusLoadError" xml:space="preserve">
+        <value>Il n'y a pas de connexion internet et ne charge pas les tarifs 
+		       précédents. Essayez encore avec connexion internet ... !!!</value>
+    </data>
 </root>

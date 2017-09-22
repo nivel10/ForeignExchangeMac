@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using ForeignExchangeMac.Helpers;
     using ForeignExchangeMac.Services;
@@ -23,10 +24,14 @@
         private Rate _sourceRate;
         private Rate _targetRate;
         private string _status;
+        private List<Rate> _ratesList;
 
         #region Services
 
         private ApiService apiService;
+        private DataService dataService;
+        private DialogService dialogService;
+        private ResourceService resourceService;
 
         #endregion
 
@@ -185,7 +190,13 @@
 
         public MainViewModel()
         {
+            // Servicios instanciados   
             apiService = new ApiService();
+            dataService = new DataService();
+            dialogService = new DialogService();
+            resourceService = new ResourceService();
+
+            //  Invoca el metodo carga de tasas
             LoadRates();
         }
 
@@ -200,30 +211,30 @@
         {
             if(string.IsNullOrEmpty(Amount))
 			{
-                await Application.Current.MainPage.DisplayAlert(
-                    Lenguages.Error, Lenguages.AmountValidation, Lenguages.Accept);
+                await dialogService.ShowMessage(
+                    Lenguages.Error, Lenguages.AmountValidation);
                 return;
             }
 
             decimal amount = 0;
             if(!decimal.TryParse(Amount, out amount))
 			{
-                await Application.Current.MainPage.DisplayAlert(
-                    Lenguages.Error, Lenguages.AmountNumericValidation, Lenguages.Accept);
+                await dialogService.ShowMessage(
+                    Lenguages.Error, Lenguages.AmountNumericValidation);
                 return;
             }
 
             if(SourceRate == null)
 			{
-				await Application.Current.MainPage.DisplayAlert(
-                    Lenguages.Error, Lenguages.SourceRateValidation, Lenguages.Accept);
+				await dialogService.ShowMessage(
+                    Lenguages.Error, Lenguages.SourceRateValidation);
 				return;
 			}
 
 			if (TargetRate == null)
 			{
-				await Application.Current.MainPage.DisplayAlert(
-                    Lenguages.Error, Lenguages.TargetRateValidation, Lenguages.Accept);
+				await dialogService.ShowMessage(
+                    Lenguages.Error, Lenguages.TargetRateValidation);
 				return;
 			}
 
@@ -244,42 +255,84 @@
 		{
             try
             {
+                //  Establece los titulos e inicia el ActivityIndicator
 				IsRunning = true;
-                //  Result = "Load rates, please wait...!!!";
                 Result = Lenguages.TitleLoadRate;
 
                 //  Verifica si hay conexion a internet 
                 var connection = await apiService.CheckConnection();
                 if(!connection.IsSuccess)
                 {
+                    //  Invoca el metodo de carga local (Tasas)
+                    LoadLocalData();
+
                     IsRunning = false;
                     IsEnabled = false;
                     Result = connection.Messages;
                     return;
                 }
-
-                var respose = await apiService.GetList<Rate>("http://apiexchangerates.azurewebsites.net", "api/Rates");
-                if(!respose.IsSuccess)
+                else
                 {
-					IsRunning = false;
+                    // Invoca el metodo que hace la carga de tasas WepApi
+                    await LoadDataFromAPI();
+                }
+
+                //  Valida el resultado de los metodos anteriores
+                if(_ratesList.Count ==0)
+                {
                     IsEnabled = false;
-                    await Application.Current.MainPage.DisplayAlert(
-                        Lenguages.Error, respose.Messages, Lenguages.Accept);
+                    IsRunning = false;
+                    Result = Lenguages.TitleStatusLoadError;
+                    Status = Lenguages.TitleStatusNoLoad;
                     return;
                 }
 
-                Rates = new ObservableCollection<Rate>((List<Rate>)respose.Result);
+				//  Carga la ObservableCollection
+				Rates = new ObservableCollection<Rate>(_ratesList);
+
                 IsRunning = false;
                 IsEnabled = true;
-                //  Result = "Ready to convert...!!!";
                 Result = Lenguages.TitleReadyConvert;
-                Status = "Rates loaded from internet...!!!";
 			}
             catch (Exception ex)
             {
                 IsRunning = false;
                 Result = ex.Message.Trim();
             }
+        }
+
+        /// <summary>
+        /// Metodo que hace la carga de las tasas locales (SQLite)
+        /// </summary>
+        private void LoadLocalData()
+        {
+            _ratesList = dataService.Get<Rate>(false);
+            Status = Lenguages.TitleStatusLoadLocal;
+        }
+
+        /// <summary>
+        /// Metodo que hqce la carga de datos de WepAPI
+        /// </summary>
+        /// <returns>The data from API.</returns>
+        private async Task LoadDataFromAPI()
+        {
+			// Optiene las tasas del WebService
+			var respose = await apiService.GetList<Rate>(
+				resourceService.GetParemeter("UrlAPI"), "api/Rates");
+			if (!respose.IsSuccess)
+			{
+                //  Invoca el metodo de carga local de tasas
+                LoadLocalData();
+				return;
+			}
+
+			// Crea un objeto de tipo List<>
+			_ratesList = (List<Rate>)respose.Result;
+			//  Elimina todas las tasas locales
+			dataService.DeleteAll<Rate>();
+			//  Salva todas las tasas (Captura un obejto de tipo List)
+			dataService.Save(_ratesList);
+            Status = Lenguages.TitleSettingsInternet;
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ using Android.OS;
 
 namespace ForeignExchangeMac.Droid
 {
-    [Activity(Label = "ForeignExchangeMac.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Foreign Exchange.Droid", Icon = "@drawable/ForeignExchange", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

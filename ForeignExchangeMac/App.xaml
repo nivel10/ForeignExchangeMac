@@ -12,10 +12,11 @@
             <!-- Locator -->
             <infra:InstanceLocator x:Key="Locator"/>
 
-            <!-- Variables -->
+            <!-- Constantes -->
             <x:String x:Key="CompanyName">CHEJ Consultor, C.A.</x:String>
             <x:String x:Key="CompanySlogan">- Su Requerimiento es Nuestro Compromiso -</x:String>
             <x:String x:Key="NameApp">Foreign Exchange</x:String>
+            <x:String x:Key="UrlAPI">http://apiexchangerates.azurewebsites.net</x:String>
        </ResourceDictionary>
 
 		<!-- Application resource dictionary -->

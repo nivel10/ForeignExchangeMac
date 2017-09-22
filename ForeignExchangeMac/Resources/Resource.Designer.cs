@@ -184,5 +184,29 @@ namespace ForeignExchangeMac.Resources {
                 return ResourceManager.GetString("TitleTheAmount", resourceCulture);
             }
         }
+        
+        internal static string TitleStatusLoadLocal {
+            get {
+                return ResourceManager.GetString("TitleStatusLoadLocal", resourceCulture);
+            }
+        }
+        
+        internal static string TitleStatusLoadInternet {
+            get {
+                return ResourceManager.GetString("TitleStatusLoadInternet", resourceCulture);
+            }
+        }
+        
+        internal static string TitleStatusNoLoad {
+            get {
+                return ResourceManager.GetString("TitleStatusNoLoad", resourceCulture);
+            }
+        }
+        
+        internal static string TitleStatusLoadError {
+            get {
+                return ResourceManager.GetString("TitleStatusLoadError", resourceCulture);
+            }
+        }
     }
 }

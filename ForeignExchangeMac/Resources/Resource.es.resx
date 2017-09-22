@@ -83,5 +83,17 @@
 	<data name="TitleTheAmount" xml:space="preserve">
     <value>El monto:</value>
   </data>
-	
+    <data name="TitleStatusLoadLocal" xml:space="preserve">
+        <value>Tasas cargadas localmente...!!!</value>
+    </data>
+    <data name="TitleStatusLoadInternet" xml:space="preserve">
+        <value>Tasas cargadas de internet...!!!</value>
+    </data>
+	<data name="TitleStatusNoLoad" xml:space="preserve">
+    <value>Tasas no cargadas...!!!</value>
+  </data>
+	<data name="TitleStatusLoadError" xml:space="preserve">
+        <value>No hay conexión a Internet y previamente no cargaron las tasas. 
+		       Por favor, inténtelo de nuevo con conexión a Internet ... !!!</value>
+    </data>
 </root>

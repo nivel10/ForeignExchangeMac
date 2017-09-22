@@ -83,5 +83,17 @@
 	<data name="TitleTheAmount" xml:space="preserve">
     <value>The amount:</value>
   </data>
-	
+	 <data name="TitleStatusLoadLocal" xml:space="preserve">
+        <value>Rates loaded from locally...!!!</value>
+    </data>
+    <data name="TitleStatusLoadInternet" xml:space="preserve">
+        <value>Rates loaded from internet...!!!</value>
+    </data>
+	<data name="TitleStatusNoLoad" xml:space="preserve">
+        <value>No rates load...!!!</value>
+    </data>
+	<data name="TitleStatusLoadError" xml:space="preserve">
+        <value>There are not internet connection and not load previously rates. 
+		       Please try again with internet connection...!!!</value>
+    </data>
 </root>
